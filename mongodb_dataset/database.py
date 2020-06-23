@@ -53,4 +53,3 @@ class Table:
         Counts the number of items that match the filter expression
         """
         return int(self.table.count_documents(filter_expr))
-
