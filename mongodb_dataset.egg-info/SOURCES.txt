@@ -1,0 +1,9 @@
+README.rst
+setup.py
+mongodb_dataset/__init__.py
+mongodb_dataset/database.py
+mongodb_dataset.egg-info/PKG-INFO
+mongodb_dataset.egg-info/SOURCES.txt
+mongodb_dataset.egg-info/dependency_links.txt
+mongodb_dataset.egg-info/requires.txt
+mongodb_dataset.egg-info/top_level.txt
