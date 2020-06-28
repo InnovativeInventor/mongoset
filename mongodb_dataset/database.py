@@ -51,13 +51,13 @@ class Table:
         Searches. Does not support comparison operators yet.
         """
         filter_expr = self._convert_id_to_obj(filter_expr)
-        return [self._convert_id_to_str(dict(i)) for i in list(self.table.find(filter_expr, projection))]
+        return [self._convert_id_to_str(dict(i)) for i in self.table.find(filter_expr, projection)]
 
     def all(self) -> List[dict]:
         """
         Returns everything in the table
         """
-        return [dict(i) for i in self.table.find()]
+        return [dict(self._convert_id_to_str(i)) for i in self.table.find()]
 
     def delete(self, **filter_expr) -> pymongo.results.DeleteResult:
         """
