@@ -7,6 +7,7 @@ if not os.environ.get("MONGO_DB_SERVER"):
 else:
     MONGO_DB_LOCAL_SERVER = os.environ.get("MONGO_DB_SERVER")
 
+
 def test_version():
     assert __version__ == "0.1.0"
 
