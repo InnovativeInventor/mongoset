@@ -87,6 +87,27 @@ def test_upsert():
     assert len(table) == 1
 
 
+def test_find():
+    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
+    table = db["test_table"]
+    table.clear()
+
+    table.insert({"i": 1, "j": 1})
+    table.insert({"i": 2, "j": 1})
+    table.insert({"i": 1, "j": 2})
+    table.insert({"i": 2, "j": 2})
+
+    rows = table.find(i=1)
+    assert len(rows) == 2
+    assert rows[0]["i"] == 1
+    assert rows[1]["i"] == 1
+
+    rows = table.find(i=1, j=1)
+    assert len(rows) == 1
+    assert rows[0]["i"] == 1
+    assert rows[0]["j"] == 1
+
+
 def test_all():
     db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
     table = db["test_table"]
