@@ -1,8 +1,11 @@
 from mongodb_dataset import __version__, connect
 from mongodb_dataset.database import Database, Table
+import os
 
-MONGO_DB_LOCAL_SERVER = "mongodb://127.0.0.1:27017/"
-
+if not os.environ.get("MONGO_DB_SERVER"):
+    MONGO_DB_LOCAL_SERVER = "mongodb://127.0.0.1:27017/"
+else:
+    MONGO_DB_LOCAL_SERVER = os.environ.get("MONGO_DB_SERVER")
 
 def test_version():
     assert __version__ == "0.1.0"
