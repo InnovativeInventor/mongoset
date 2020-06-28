@@ -18,13 +18,13 @@ def test_connect():
 
 def test_table():
     db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db['test_table']
+    table = db["test_table"]
     assert isinstance(table, Table)
 
 
 def test_insert():
     db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db['test_table']
+    table = db["test_table"]
 
     len_before_insert = len(table)
 
@@ -37,7 +37,7 @@ def test_insert():
 
 def test_clear():
     db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db['test_table']
+    table = db["test_table"]
 
     table.insert({"a": "b"})
     table.insert({"a": "b"})
@@ -50,7 +50,7 @@ def test_clear():
 
 def test_delete():
     db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db['test_table']
+    table = db["test_table"]
     table.clear()
 
     table.insert({"i": 1, "j": 1})
@@ -65,27 +65,27 @@ def test_delete():
 
 def test_upsert():
     db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db['test_table']
+    table = db["test_table"]
     table.clear()
 
     table.insert({"i": 1, "j": 1})
 
     row = table.find_one(i=1, j=1)
-    row['i'] = 3
-    row['j'] = 2
+    row["i"] = 3
+    row["j"] = 2
 
     table.upsert(row)
 
     row2 = table.find_one(i=3, j=2)
 
-    assert row2['i'] == 3
-    assert row2['j'] == 2
+    assert row2["i"] == 3
+    assert row2["j"] == 2
     assert len(table) == 1
 
 
 def test_all():
     db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db['test_table']
+    table = db["test_table"]
     table.clear()
 
     table.insert({"j": 1, "k": 1})
@@ -98,5 +98,5 @@ def test_all():
     assert len(elements) == 4
 
     for element in elements:
-        assert element['j']
-        assert element['k']
+        assert element["j"]
+        assert element["k"]
