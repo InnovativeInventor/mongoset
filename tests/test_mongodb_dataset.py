@@ -1,5 +1,6 @@
 from mongodb_dataset import __version__, connect
 from mongodb_dataset.database import Database, Table
+from mongodb_dataset.expression import gt, gte, lt, lte, in_list, not_in_list
 import os
 
 if not os.environ.get("MONGO_DB_SERVER"):
@@ -125,3 +126,41 @@ def test_all():
     for element in elements:
         assert element["j"]
         assert element["k"]
+
+
+def test_find_expr():
+    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
+    table = db["test_table"]
+    table.clear()
+
+    table.insert({"i": 1, "j": 1})
+    table.insert({"i": 2, "j": 2})
+    table.insert({"i": 1, "j": 3})
+    table.insert({"i": 2, "j": 4})
+
+    rows = table.find(j=gt(2))
+    assert len(rows) == 2
+
+    rows = table.find(j=gte(2))
+    assert len(rows) == 3
+
+    rows = table.find(i=lt(2))
+    assert len(rows) == 2
+
+    rows = table.find(i=lte(2))
+    assert len(rows) == 4
+
+    rows = table.find(j=(gt(1), lt(3)))
+    assert len(rows) == 1
+
+    rows = table.find(j=(gt(1), lte(3)))
+    assert len(rows) == 2
+
+    rows = table.find(j=(gt(1), lte(3)), i=lt(2))
+    assert len(rows) == 1
+
+    rows = table.find(j=in_list(2, 4))
+    assert len(rows) == 2
+
+    rows = table.find(j=not_in_list(1, 2, 4))
+    assert len(rows) == 1

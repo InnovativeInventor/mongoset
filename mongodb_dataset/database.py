@@ -32,7 +32,7 @@ class Table:
         """
         return self.table.insert_one(row)
 
-    def upsert(self, row: dict, key=None) -> pymongo.results.UpdateResult:
+    def upsert(self, row: dict, key: List[str] = None) -> pymongo.results.UpdateResult:
         """
         Upserts row
         """
@@ -48,7 +48,7 @@ class Table:
         """
         Returns the first match
         """
-        filter_expr = self._convert_id_to_obj(filter_expr)
+        filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
         return self._convert_id_to_str(
             dict(self.table.find_one(filter_expr, projection))
         )
@@ -57,7 +57,7 @@ class Table:
         """
         Searches. Does not support comparison operators yet.
         """
-        filter_expr = self._convert_id_to_obj(filter_expr)
+        filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
         return [
             self._convert_id_to_str(dict(i))
             for i in self.table.find(filter_expr, projection)
@@ -73,7 +73,7 @@ class Table:
         """
         Deletes everything that matches
         """
-        return self.table.delete_many(filter_expr)
+        return self.table.delete_many(self._eval_filter_expr(filter_expr))
 
     def clear(self) -> pymongo.results.DeleteResult:
         """
@@ -85,9 +85,27 @@ class Table:
         """
         Counts the number of items that match the filter expression
         """
-        return int(self.table.count_documents(filter_expr))
+        return int(self.table.count_documents(self._eval_filter_expr(filter_expr)))
 
     __len__ = count
+
+    @staticmethod
+    def _eval_filter_expr(filer_expr: dict) -> dict:
+        for key, val in filer_expr.items():
+            if isinstance(val, Expression):
+                val = val.to_dict()
+                filer_expr[key] = val
+
+            if isinstance(val, tuple):
+                new_val = dict()
+
+                for expr in val:
+                    assert isinstance(expr, Expression)
+                    new_val.update(expr.to_dict())
+
+                filer_expr[key] = new_val
+
+        return filer_expr
 
     @staticmethod
     def _convert_id_to_str(data: dict) -> dict:
@@ -100,3 +118,12 @@ class Table:
         if "_id" in data:
             data["_id"] = ObjectId(data["_id"])
         return data
+
+
+class Expression:
+    def __init__(self, key, val):
+        self.key: str = key
+        self.val: str = val
+
+    def to_dict(self) -> dict:
+        return {self.key: self.val}
