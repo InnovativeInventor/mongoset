@@ -164,3 +164,12 @@ def test_find_expr():
 
     rows = table.find(j=not_in_list(1, 2, 4))
     assert len(rows) == 1
+
+
+def test_find_none():
+    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
+    table = db["test_table"]
+    table.clear()
+
+    rows = table.find(j=gt(2))
+    assert not rows
