@@ -49,9 +49,13 @@ class Table:
         Returns the first match
         """
         filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
-        return self._convert_id_to_str(
-            dict(self.table.find_one(filter_expr, projection))
-        )
+        response = self.table.find_one(filter_expr, projection)
+        if response:
+            return self._convert_id_to_str(
+                dict(self.table.find_one(filter_expr, projection))
+            )
+        else:
+            return {}
 
     def find(self, projection=None, **filter_expr) -> List[dict]:
         """
