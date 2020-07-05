@@ -1,4 +1,5 @@
 from mongodb_dataset import __version__, connect
+import pytest
 from mongodb_dataset.database import Database, Table
 from mongodb_dataset.expression import gt, gte, lt, lte, in_list, not_in_list
 import os
@@ -81,10 +82,15 @@ def test_upsert():
 
     table.upsert(row)
 
+    row["k"] = 4
+    del row['_id']
+    table.upsert(row, ["i"])
+
     row2 = table.find_one(i=3, j=2)
 
     assert row2["i"] == 3
     assert row2["j"] == 2
+    assert row2["k"] == 4
     assert len(table) == 1
 
 
@@ -186,3 +192,11 @@ def test_find_none():
     rows = table.find_one()
     assert not rows
     assert rows == {}
+
+def test_raise_value_error():
+    with pytest.raises(Exception) as e_info:
+        db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
+        table = db["test_table"]
+        table.delete()
+
+
