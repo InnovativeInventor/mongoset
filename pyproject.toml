@@ -1,8 +1,17 @@
 [tool.poetry]
 name = "mongodb-dataset"
-version = "0.1.3"
+version = "0.1.4"
 description = ""
 authors = ["InnovativeInventor <root@max.fan>"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/TadpoleTutoring/mongodb-dataset"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
 
 [tool.poetry.dependencies]
 python = "^3.8"
