@@ -78,7 +78,9 @@ class Table:
         Deletes everything that matches
         """
         if not filter_expr:
-            raise ValueError("Error! Empty filter expression! Call db.clear() if you want to delete everything")
+            raise ValueError(
+                "Error! Empty filter expression! Call db.clear() if you want to delete everything"
+            )
 
         return self.table.delete_many(self._eval_filter_expr(filter_expr))
 
