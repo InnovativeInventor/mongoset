@@ -42,7 +42,6 @@ class Table:
         Upserts row. Returns the number of documents modified. By default, if _id is not passed, the first value in the dict is the key.
         """
         row = self._convert_id_to_obj(row)
-
         if key is None and "_id" in row:
             key = ["_id"]
         else:
@@ -51,18 +50,15 @@ class Table:
                 break
             else:
                 raise ValueError("Empty dict provided")
-        print("key", key)
 
         f = {a: b for a, b in [(i, row[i]) for i in key]}
-        print(f)
+
         update_response = self.table.update_one(f, {"$set": row}, upsert=True)
 
-        # Fix pymongo's broken upsert
-        # if update_response.modified_count==0 and update_response.matched_count == 0:
-        #     print("insert")
-        #     return self.insert(row)
-        # else:
-        return update_response.modified_count
+        if (not update_response.modified_count) and (not update_response.matched_count):
+            return self.insert(row)
+        else:
+            return update_response.modified_count
 
     def find_one(self, projection=None, **filter_expr) -> dict:
         """

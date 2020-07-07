@@ -1,4 +1,5 @@
 import os
+import time
 
 import pytest
 from mongodb_dataset import __version__, connect
@@ -34,14 +35,17 @@ def test_upsert_modify_check():
 
     row = table.find_one(i=1, j=1)
     assert row
+    print("test id", row["_id"])
 
     row["i"] = 3
     row["j"] = 2
 
     assert table.upsert(row)
+    print(table.all())
+    assert len(table) == 1
     assert not table.upsert(row)
     assert table.upsert(row) == 0
-    assert len(table) == 2
+    assert len(table) == 1
 
     print(table.all())
 
