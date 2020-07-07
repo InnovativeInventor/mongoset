@@ -32,9 +32,9 @@ class Table:
         """
         return self.table.insert_one(row)
 
-    def upsert(self, row: dict, key: List[str] = None) -> pymongo.results.UpdateResult:
+    def upsert(self, row: dict, key: List[str] = None) -> bool:
         """
-        Upserts row
+        Upserts row. Returns true if something was updated
         """
         row = self._convert_id_to_obj(row)
 
@@ -42,7 +42,11 @@ class Table:
             key = ["_id"]
 
         f = {a: b for a, b in [(i, row[i]) for i in key]}
-        return self.table.update_one(f, {"$set": row}, True)
+        update_response = self.table.update_one(f, {"$set": row}, True)
+        if update_response.modified_count:
+            return True
+        else:
+            return False
 
     def find_one(self, projection=None, **filter_expr) -> dict:
         """

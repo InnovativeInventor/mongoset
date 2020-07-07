@@ -80,7 +80,8 @@ def test_upsert():
     row["i"] = 3
     row["j"] = 2
 
-    table.upsert(row)
+    assert table.upsert(row)
+    assert not table.upsert(row)
 
     row["k"] = 4
     del row["_id"]
