@@ -54,12 +54,15 @@ class Table:
         print("key", key)
 
         f = {a: b for a, b in [(i, row[i]) for i in key]}
-        update_response = self.table.update_one(f, {"$set": row}, True)
+        print(f)
+        update_response = self.table.update_one(f, {"$set": row}, upsert=True)
 
-        if (not update_response.modified_count) and (not update_response.matched_count):
-            return self.insert(row)
-        else:
-            return update_response.modified_count
+        # Fix pymongo's broken upsert
+        # if update_response.modified_count==0 and update_response.matched_count == 0:
+        #     print("insert")
+        #     return self.insert(row)
+        # else:
+        return update_response.modified_count
 
     def find_one(self, projection=None, **filter_expr) -> dict:
         """

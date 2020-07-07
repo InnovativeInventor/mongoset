@@ -70,8 +70,6 @@ def test_delete():
     assert len(table) == 2
 
 
-
-
 def test_find():
     db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
     table = db["test_table"]
