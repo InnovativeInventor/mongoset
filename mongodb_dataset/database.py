@@ -1,7 +1,7 @@
-import pymongo
-import pymongo.results
 from typing import List
 
+import pymongo
+import pymongo.results
 from bson import ObjectId
 
 
@@ -28,25 +28,38 @@ class Table:
 
     def insert(self, row: dict) -> pymongo.results.InsertOneResult:
         """
-        Inserts row
+        Inserts row. Returns true if the write is acknowledged.
         """
-        return self.table.insert_one(row)
+        insert_response = self.table.insert_one(row)
 
-    def upsert(self, row: dict, key: List[str] = None) -> bool:
-        """
-        Upserts row. Returns true if something was updated
-        """
-        row = self._convert_id_to_obj(row)
-
-        if key is None:
-            key = ["_id"]
-
-        f = {a: b for a, b in [(i, row[i]) for i in key]}
-        update_response = self.table.update_one(f, {"$set": row}, True)
-        if update_response.modified_count:
+        if insert_response.acknowledged:
             return True
         else:
             return False
+
+    def upsert(self, row: dict, key: List[str] = None) -> int:
+        """
+        Upserts row. Returns the number of documents modified. By default, if _id is not passed, the first value in the dict is the key.
+        """
+        row = self._convert_id_to_obj(row)
+
+        if key is None and "_id" in row:
+            key = ["_id"]
+        else:
+            for x in row.keys():
+                key = x
+                break
+            else:
+                raise ValueError("Empty dict provided")
+        print("key", key)
+
+        f = {a: b for a, b in [(i, row[i]) for i in key]}
+        update_response = self.table.update_one(f, {"$set": row}, True)
+
+        if (not update_response.modified_count) and (not update_response.matched_count):
+            return self.insert(row)
+        else:
+            return update_response.modified_count
 
     def find_one(self, projection=None, **filter_expr) -> dict:
         """
@@ -77,22 +90,24 @@ class Table:
         """
         return [dict(self._convert_id_to_str(i)) for i in self.table.find()]
 
-    def delete(self, **filter_expr) -> pymongo.results.DeleteResult:
+    def delete(self, **filter_expr) -> int:
         """
-        Deletes everything that matches
+        Deletes everything that matches. Returns the number of items deleted.
         """
         if not filter_expr:
             raise ValueError(
                 "Error! Empty filter expression! Call db.clear() if you want to delete everything"
             )
 
-        return self.table.delete_many(self._eval_filter_expr(filter_expr))
+        delete_response = self.table.delete_many(self._eval_filter_expr(filter_expr))
 
-    def clear(self) -> pymongo.results.DeleteResult:
+        return delete_response.deleted_count
+
+    def clear(self) -> int:
         """
-        Clears the entire table
+        Clears the entire table. Returns the number of items that were deleted.
         """
-        return self.table.delete_many({})
+        return self.table.delete_many({}).deleted_count
 
     def count(self, **filter_expr) -> int:
         """
