@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional, Union
 
 import pymongo
 import pymongo.results
@@ -33,7 +33,7 @@ class Table:
         self.table_name = table_name
         self.table = self.client[self.db_name][self.table_name]
 
-    def insert(self, row: dict) -> pymongo.results.InsertOneResult:
+    def insert(self, row: dict) -> Union[bool, str]:
         """
         Inserts row. Returns true if the write is acknowledged.
         """
