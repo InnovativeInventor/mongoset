@@ -5,6 +5,7 @@ from tests.test_setup import setup
 
 row = {}
 
+
 def test_update_race(start_race):
     table_main = setup()
     table_main.clear()
@@ -15,6 +16,7 @@ def test_update_race(start_race):
         assert table.update({"i": 1, "locked": True}, ["i"])
 
     start_race(threads_num=1, target=test_update)
+
 
 def test_update_race_fail(start_race):
     table_main = setup()
@@ -32,6 +34,7 @@ def test_update_race_fail(start_race):
     assert "AssertionError" in str(e)
     assert "where 0 =" in str(e)
 
+
 def test_upsert_race(start_race):
     table_main = setup()
     table_main.clear()
@@ -42,6 +45,7 @@ def test_upsert_race(start_race):
         assert table.upsert({"i": 1, "locked": True}, ["i"])
 
     start_race(threads_num=1, target=test_upsert)
+
 
 def test_upsert_race_fail(start_race):
     table_main = setup()
