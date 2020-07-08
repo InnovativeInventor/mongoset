@@ -38,32 +38,48 @@ class Table:
         insert_response = self.table.insert_one(row)
 
         if insert_response.acknowledged:
-            return True
+            return str(insert_response.inserted_id)
         else:
             return False
 
     def upsert(self, row: dict, key: List[str] = None) -> int:
         """
-        Upserts row. Returns the number of documents modified. By default, if _id is not passed, the first value in the dict is the key.
+        Upserts row. Returns the number of documents modified. By default, if _id is not passed, it'll attempt to insert. Will return 0 if a document was inserted.
         """
         row = self._convert_id_to_obj(row)
-        if key is None and "_id" in row:
+        if (not key) and "_id" in row:
             key = ["_id"]
-        else:
-            for x in row.keys():
-                key = x
-                break
-            else:
-                raise ValueError("Empty dict provided")
+        elif not key:
+            raise ValueError("No key provided")
 
         f = {a: b for a, b in [(i, row[i]) for i in key]}
 
+        # update_response = self.table.update_one(f, {"$set": row}, upsert=True)
         update_response = self.table.update_one(f, {"$set": row}, upsert=True)
 
-        if (not update_response.modified_count) and (not update_response.matched_count):
-            return self.insert(row)
-        else:
-            return update_response.modified_count
+        # if (not update_response.modified_count) and (not update_response.matched_count):
+        #    return self.insert(row)
+        # else:
+        #     return update_response.modified_count
+
+        return update_response.modified_count
+
+    def update(self, row: dict, key: List[str] = None) -> int:
+        """
+        Updates row. Returns the number of documents modified.
+        """
+        row = self._convert_id_to_obj(row)
+        if (not key) and "_id" in row:
+            key = ["_id"]
+        elif not key:
+            raise ValueError("No key provided")
+
+        f = {a: b for a, b in [(i, row[i]) for i in key]}
+
+        # update_response = self.table.update_one(f, {"$set": row}, upsert=True)
+        update_response = self.table.update_one(f, {"$set": row})
+
+        return update_response.modified_count
 
     def find_one(self, projection=None, **filter_expr) -> dict:
         """
