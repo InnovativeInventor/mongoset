@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mongodb-dataset"
-version = "0.1.8"
+version = "0.2.0"
 description = "Pythonic wrapper around pymongo that can act as a drop-in replacement for dataset"
 authors = ["InnovativeInventor <root@max.fan>"]
 readme = "README.md"

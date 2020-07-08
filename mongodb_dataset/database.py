@@ -44,9 +44,9 @@ class Table:
         else:
             return False
 
-    def upsert(self, row: dict, key: List[str] = None) -> int:
+    def upsert(self, row: dict, key: List[str] = None) -> bool:
         """
-        Upserts row. Returns the number of documents modified. By default, if _id is not passed, it'll attempt to insert. Will return 0 if a document was inserted.
+        Upserts a row. Returns the number of documents modified. By default, if _id is not passed, it'll attempt to insert. Will return 0 if a document was inserted.
         """
         row = self._convert_id_to_obj(row)
         if (not key) and "_id" in row:
@@ -64,11 +64,11 @@ class Table:
         # else:
         #     return update_response.modified_count
 
-        return update_response.modified_count
+        return bool(update_response.modified_count)
 
-    def update(self, row: dict, key: List[str] = None) -> int:
+    def update(self, row: dict, key: List[str] = None) -> bool:
         """
-        Updates row. Returns the number of documents modified.
+        Updates a row. Returns the number of documents modified. Good for locking and other sensitive operations.
         """
         row = self._convert_id_to_obj(row)
         if (not key) and "_id" in row:
@@ -81,7 +81,7 @@ class Table:
         # update_response = self.table.update_one(f, {"$set": row}, upsert=True)
         update_response = self.table.update_one(f, {"$set": row})
 
-        return update_response.modified_count
+        return bool(update_response.modified_count)
 
     def find_one(self, projection=None, **filter_expr) -> dict:
         """

@@ -38,7 +38,6 @@ def test_upsert_modify_check():
     print(table.all())
     assert len(table) == 1
     assert not table.upsert(row)
-    assert table.upsert(row) == 0
     assert len(table) == 1
 
     print(table.all())

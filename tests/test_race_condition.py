@@ -32,7 +32,7 @@ def test_update_race_fail(start_race):
 
     assert "Table.update" in str(e)
     assert "AssertionError" in str(e)
-    assert "where 0 =" in str(e)
+    assert "where False =" in str(e)
 
 
 def test_upsert_race(start_race):
@@ -61,4 +61,4 @@ def test_upsert_race_fail(start_race):
 
     assert "Table.upsert" in str(e)
     assert "AssertionError" in str(e)
-    assert "where 0 =" in str(e)
+    assert "where False =" in str(e)
