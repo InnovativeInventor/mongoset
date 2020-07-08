@@ -7,7 +7,12 @@ from bson import ObjectId
 
 class Database:
     def __init__(self, uri="", db_name="database"):
-        self.client = pymongo.MongoClient(uri)
+        # write_concern = pymongo.write_concern.WriteConcern(w="majority", fsync=True)
+        write_concern = pymongo.write_concern.WriteConcern(w=3, fsync=True)
+        read_concern = pymongo.read_concern.ReadConcern(level="majority")
+
+        self.client = pymongo.MongoClient(uri, w="majority", fsync=True, wTimeoutMS=0, readPreference = "primary")
+
         self.db_name = db_name
 
     def __getitem__(self, table):
