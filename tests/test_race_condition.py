@@ -1,5 +1,3 @@
-import time
-
 import pytest
 from tests.test_setup import setup
 

@@ -1,4 +1,4 @@
-from mongodb_dataset.database import Database
+from mongoset.database import Database
 
 __version__ = "0.1.0"
 

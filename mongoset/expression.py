@@ -1,4 +1,4 @@
-from mongodb_dataset.database import Expression
+from mongoset.database import Expression
 
 
 def gt(val):
