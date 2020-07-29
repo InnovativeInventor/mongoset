@@ -90,11 +90,9 @@ class Table:
         filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
         response = self.table.find_one(filter_expr, projection)
         if response:
-            return self._convert_id_to_str(
-                dict(self.table.find_one(filter_expr, projection))
-            )
-        else:
-            return {}
+            return self._convert_id_to_str(dict(response))
+
+        return None
 
     def find(self, projection=None, **filter_expr) -> List[dict]:
         """
@@ -136,6 +134,25 @@ class Table:
         Counts the number of items that match the filter expression
         """
         return int(self.table.count_documents(self._eval_filter_expr(filter_expr)))
+
+    def index(self, key: str, unique=True, index_type=pymongo.ASCENDING):
+        """
+        Creates an index on the collection. If unique is set to True, an unique index is created and enforced.
+        """
+        index = pymongo.operations.IndexModel((key), name=key + "_index", unique=unique)
+        self.table.create_index(index)
+
+    def deindex(self, key: str):
+        """
+        Removes an index in the collection.
+        """
+        self.table.drop_index(key + "_index")
+
+    def deindex_all(self):
+        """
+        Deletes all indexes
+        """
+        self.table.drop_indexes()
 
     __len__ = count
 

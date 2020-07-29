@@ -155,19 +155,15 @@ def test_find_none():
 
     rows = table.find(j=gt(2))
     assert not rows
-    assert rows == []
 
     rows = table.find()
     assert not rows
-    assert rows == []
 
     rows = table.find_one(j=gt(2))
     assert not rows
-    assert rows == {}
 
     rows = table.find_one()
     assert not rows
-    assert rows == {}
 
 
 def test_raise_value_error():
