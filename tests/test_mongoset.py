@@ -4,6 +4,7 @@ import pytest
 from mongoset import __version__, connect
 from mongoset.database import Database, Table
 from mongoset.expression import gt, gte, in_list, lt, lte, not_in_list
+from tests.test_setup import setup
 
 if not os.environ.get("MONGO_DB_SERVER"):
     MONGO_DB_LOCAL_SERVER = "mongodb://127.0.0.1:27017/"
@@ -24,14 +25,12 @@ def test_connect():
 
 
 def test_table():
-    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db["test_table"]
+    table = setup()
     assert isinstance(table, Table)
 
 
 def test_insert():
-    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db["test_table"]
+    table = setup()
 
     len_before_insert = len(table)
 
@@ -43,8 +42,7 @@ def test_insert():
 
 
 def test_clear():
-    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db["test_table"]
+    table = setup()
 
     table.insert({"a": "b"})
     table.insert({"a": "b"})
@@ -56,8 +54,7 @@ def test_clear():
 
 
 def test_delete():
-    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db["test_table"]
+    table = setup()
     table.clear()
 
     table.insert({"i": 1, "j": 1})
@@ -71,8 +68,7 @@ def test_delete():
 
 
 def test_find():
-    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db["test_table"]
+    table = setup()
     table.clear()
 
     table.insert({"i": 1, "j": 1})
@@ -92,8 +88,7 @@ def test_find():
 
 
 def test_all():
-    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db["test_table"]
+    table = setup()
     table.clear()
 
     table.insert({"j": 1, "k": 1})
@@ -111,8 +106,7 @@ def test_all():
 
 
 def test_find_expr():
-    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db["test_table"]
+    table = setup()
     table.clear()
 
     table.insert({"i": 1, "j": 1})
@@ -149,8 +143,7 @@ def test_find_expr():
 
 
 def test_find_none():
-    db = connect(MONGO_DB_LOCAL_SERVER, "test_db")
-    table = db["test_table"]
+    table = setup()
     table.clear()
 
     rows = table.find(j=gt(2))
