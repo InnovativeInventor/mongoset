@@ -119,7 +119,9 @@ class Table:
                 "Error! Empty filter expression! Call db.clear() if you want to delete everything"
             )
 
-        delete_response = self.table.delete_many(self._eval_filter_expr(filter_expr))
+        delete_response = self.table.delete_many(
+            self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+        )
 
         return delete_response.deleted_count
 
