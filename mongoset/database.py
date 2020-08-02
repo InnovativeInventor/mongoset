@@ -20,6 +20,11 @@ class Database:
     def __getitem__(self, table):
         return Table(self.client, db_name=self.db_name, table_name=table)
 
+    def drop(self):
+        """
+        Drops collection
+        """
+        self.client.drop_database(self.db_name)
 
 class Table:
     def __init__(
