@@ -26,6 +26,7 @@ class Database:
         """
         self.client.drop_database(self.db_name)
 
+
 class Table:
     def __init__(
         self,
