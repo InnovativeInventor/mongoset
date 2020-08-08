@@ -69,7 +69,7 @@ class ModelTable(Generic[TDocumentModel]):
     def count(self, **filter_expr) -> int:
         return _BaseOperations.count(self._table, filter_expr)
 
-    def lock(self, data: TDocumentModel, max_attempts = 0, create=True) -> bool:
+    def lock(self, data: TDocumentModel, max_attempts=0, create=True) -> bool:
         """
         Attempts to lock object. If _id is provided, it'll lock that object.
         If not, it'll filter for an identical object and lock if only one matches.

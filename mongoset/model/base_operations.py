@@ -59,7 +59,7 @@ class _BaseOperations:
         return table.count(**filter_expr)
 
     @staticmethod
-    def lock(table: Table, _id: str, attempt=0, max_attempts = 0) -> bool:
+    def lock(table: Table, _id: str, attempt=0, max_attempts=0) -> bool:
         """
         Attempts to acquire lock on object
         """
@@ -67,7 +67,9 @@ class _BaseOperations:
             return True
 
         if attempt < max_attempts:
-            return _BaseOperations.lock(table=table, _id=_id, nonce=nonce, attempt=attempt+1)
+            return _BaseOperations.lock(
+                table=table, _id=_id, nonce=nonce, attempt=attempt + 1
+            )
         else:
             return False
 
@@ -80,4 +82,3 @@ class _BaseOperations:
             return True
 
         return False
-
