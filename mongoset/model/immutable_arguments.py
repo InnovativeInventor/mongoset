@@ -3,6 +3,15 @@ class _Unset:
 
 
 class Immutable:
+    """
+    Set a field of an ObjectModel to this class to make it immutable.
+
+    Examples:
+        class ExampleObject(ObjectModel):
+            x: int = Immutable(5)
+            y: str = Immutable()
+    """
+
     def __init__(self, default_val=_Unset):
         self.default_val = default_val
 
