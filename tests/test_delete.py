@@ -1,5 +1,3 @@
-import pytest
-from mongoset.database import Database, Table
 from tests.test_setup import setup
 
 
