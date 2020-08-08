@@ -75,13 +75,13 @@ class ModelTable(Generic[TDocumentModel]):
         If not, it'll filter for an identical object and lock if only one matches.
         If the object does not exist, a new locked object will be created (only if create=True).
         """
-        if data.id and self.get_by_id(data.id):
-            _id = data.id
+        if data._id and self.get_by_id(data._id):
+            _id = data._id
 
-        elif self.count(**data.serialize()) == 1 and data.serialize():
-            _id = self.filter(**data.serialize())[0].id
+        elif self.count(data.dict()) == 1 and data.dict():
+            _id = self.filter(data.dict())[0]._id
 
-        elif create:
+        elif self.count(data.dict()) == 0 and create:
             _id = self.create(data)
 
         else:
@@ -93,4 +93,4 @@ class ModelTable(Generic[TDocumentModel]):
         """
         Releases object
         """
-        return _BaseOperations.release(self._table, data.id)
+        return _BaseOperations.release(self._table, data._id)
