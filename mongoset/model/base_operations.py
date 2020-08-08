@@ -23,32 +23,32 @@ class _BaseOperations:
 
     @staticmethod
     def update(table: Table, data: dict) -> bool:
-        if data.get('id') is not None:
-            data['_id'] = data['id']
-            del data['id']
+        if data.get("id") is not None:
+            data["_id"] = data["id"]
+            del data["id"]
             return table.update(data)
 
     @staticmethod
     def get_by_id(table: Table, _id: str) -> dict:
         data = table.find_one(_id=_id)
-        data['id'] = data['_id']
-        del data['_id']
+        data["id"] = data["_id"]
+        del data["_id"]
         return data
 
     @staticmethod
     def all(table: Table) -> List[dict]:
         data = list(table.all())
         for i in data:
-            i['id'] = i['_id']
-            del i['_id']
+            i["id"] = i["_id"]
+            del i["_id"]
         return data
 
     @staticmethod
     def filter(table: Table, filter_expr: dict) -> List[dict]:
         data = list(table.find(**filter_expr))
         for i in data:
-            i['id'] = i['_id']
-            del i['_id']
+            i["id"] = i["_id"]
+            del i["_id"]
         return data
 
     @staticmethod

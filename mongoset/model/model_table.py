@@ -11,7 +11,9 @@ class ModelTable(Generic[TDocumentModel]):
 
     def __init__(self, _table: Table):
         if self.member_class is None:
-            raise ValueError("A ModelTable was instantiated without a member_class variable")
+            raise ValueError(
+                "A ModelTable was instantiated without a member_class variable"
+            )
 
         self._table = _table
         self.create_hook: Optional[Callable[[TDocumentModel], bool]] = None
@@ -42,7 +44,7 @@ class ModelTable(Generic[TDocumentModel]):
 
         # Remove immutables so they can't get updated (except id)
         for key in list(serialized_data.keys()):
-            if key in data.__immutables__ and key != 'id':
+            if key in data.__immutables__ and key != "id":
                 del serialized_data[key]
 
         return _BaseOperations.update(self._table, serialized_data)
@@ -60,7 +62,8 @@ class ModelTable(Generic[TDocumentModel]):
 
     def filter(self, **filter_expr) -> List[TDocumentModel]:
         return [
-            self.member_class(**i) for i in _BaseOperations.filter(self._table, filter_expr)
+            self.member_class(**i)
+            for i in _BaseOperations.filter(self._table, filter_expr)
         ]
 
     def count(self, **filter_expr) -> int:
