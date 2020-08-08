@@ -72,13 +72,13 @@ class ModelTable(Generic[TDocumentModel]):
     def lock(self, data: TDocumentModel, max_attempts=0, create=True) -> bool:
         """
         Attempts to lock object. If _id is provided, it'll lock that object.
-        If not, it'll filter for an identical object and lock if only one matches.
-        If the object does not exist, a new locked object will be created (only if create=True) and there are no other objects with identical fields.
+        If id is not provided, a ValueError is raised.
         """
         if data.id and self.get_by_id(data.id):
             _id = data.id
 
         else:
+            raise ValueError("Data id is not provided")
             return False
 
         return _BaseOperations.lock(self._table, id, max_attempts=max_attempts)
