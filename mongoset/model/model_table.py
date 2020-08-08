@@ -73,7 +73,7 @@ class ModelTable(Generic[TDocumentModel]):
         """
         Attempts to lock object. If _id is provided, it'll lock that object.
         If not, it'll filter for an identical object and lock if only one matches.
-        If the object does not exist, a new locked object will be created (only if create=True).
+        If the object does not exist, a new locked object will be created (only if create=True) and there are no other objects with identical fields.
         """
         if data._id and self.get_by_id(data._id):
             _id = data._id
