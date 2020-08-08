@@ -19,7 +19,10 @@ class _BaseOperations:
 
     @staticmethod
     def delete_matching(table: Table, filter_expr: dict) -> int:
-        return table.delete(**filter_expr)
+        if not filter_expr:
+            raise ValueError("Empty dict provided")
+        else:
+            return table.delete(**filter_expr)
 
     @staticmethod
     def update(table: Table, data: dict) -> bool:
@@ -54,3 +57,27 @@ class _BaseOperations:
     @staticmethod
     def count(table: Table, filter_expr: dict) -> int:
         return table.count(**filter_expr)
+
+    @staticmethod
+    def lock(table: Table, _id: str, attempt=0, max_attempts = 0) -> bool:
+        """
+        Attempts to acquire lock on object
+        """
+        if table.update({"_id": _id, "_mutex": True}, ["_id"]):
+            return True
+
+        if attempt < max_attempts:
+            return _BaseOperations.lock(table=table, _id=_id, nonce=nonce, attempt=attempt+1)
+        else:
+            return False
+
+    @staticmethod
+    def release(table: Table, _id: str) -> bool:
+        """
+        Releases lock on object. Returns False if the object does not exist or is already released.
+        """
+        if table.update({"_id": _id, "_mutex": False}, ["_id"]):
+            return True
+
+        return False
+
