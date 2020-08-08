@@ -78,12 +78,6 @@ class ModelTable(Generic[TDocumentModel]):
         if data.id and self.get_by_id(data.id):
             _id = data.id
 
-        elif self.count(data.dict()) == 1 and data.dict():
-            _id = self.filter(data.dict())[0].id
-
-        elif self.count(data.dict()) == 0 and create:
-            _id = self.create(data)
-
         else:
             return False
 
