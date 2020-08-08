@@ -67,9 +67,7 @@ class _BaseOperations:
             return True
 
         if attempt < max_attempts:
-            return _BaseOperations.lock(
-                table=table, _id=_id, nonce=nonce, attempt=attempt + 1
-            )
+            return _BaseOperations.lock(table=table, _id=_id, attempt=attempt + 1)
         else:
             return False
 
