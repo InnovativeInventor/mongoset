@@ -49,8 +49,7 @@ def test_lock_race_success(start_race):
     def test_lock():
         assert table.lock(test_object)
 
-    with pytest.raises(Exception) as e:
-        start_race(threads_num=1, target=test_lock)
+    start_race(threads_num=1, target=test_lock)
 
 
 def test_lock_race_fail(start_race):
