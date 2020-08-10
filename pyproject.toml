@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "mongoset"
-version = "0.2.3"
+version = "0.2.4"
 description = "Pythonic wrapper around pymongo that can act as a drop-in replacement for dataset"
-authors = ["InnovativeInventor <root@max.fan>"]
+authors = ["InnovativeInventor (Max Fan) <root@max.fan>"]
 readme = "README.md"
 license = "MIT"
 repository = "https://github.com/TadpoleTutoring/mongoset"

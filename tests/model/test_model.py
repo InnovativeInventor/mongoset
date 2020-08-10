@@ -15,6 +15,7 @@ class TestObject(DocumentModel):
 class TestObjectTable(ModelTable[TestObject]):
     member_class = TestObject
 
+
 def setup_model():
     table = TestObjectTable(setup())
     table.clear()

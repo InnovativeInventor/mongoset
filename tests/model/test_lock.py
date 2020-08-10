@@ -19,6 +19,7 @@ class TestObject(DocumentModel):
 class TestObjectTable(ModelTable[TestObject]):
     member_class = TestObject
 
+
 """
 Race condition tests using pytest-race
 """
@@ -37,6 +38,7 @@ def test_lock():
     assert table.release(test_object)
     assert not table.release(test_object)
 
+
 def test_lock_race_success(start_race):
     table = TestObjectTable(setup())
     table.clear()
@@ -49,6 +51,7 @@ def test_lock_race_success(start_race):
 
     with pytest.raises(Exception) as e:
         start_race(threads_num=1, target=test_update)
+
 
 def test_lock_race_fail(start_race):
     for i in range(5):
@@ -63,4 +66,3 @@ def test_lock_race_fail(start_race):
 
         with pytest.raises(Exception) as e:
             start_race(threads_num=2, target=test_update)
-
