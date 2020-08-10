@@ -59,11 +59,11 @@ class _BaseOperations:
         return table.count(**filter_expr)
 
     @staticmethod
-    def lock(table: Table, _id: str, attempt=0, max_attempts=0) -> bool:
+    def lock(table: Table, id: str, attempt=0, max_attempts=0) -> bool:
         """
         Attempts to acquire lock on object
         """
-        if table.update({"_id": _id, "_mutex": True}, ["_id"]):
+        if table.update({"_id": id, "_mutex": True}, ["_id"]):
             return True
 
         if attempt < max_attempts:

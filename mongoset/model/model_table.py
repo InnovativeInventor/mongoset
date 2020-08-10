@@ -72,13 +72,19 @@ class ModelTable(Generic[TDocumentModel]):
     def lock(self, data: TDocumentModel, max_attempts=0, create=True) -> bool:
         """
         Attempts to lock object. If _id is provided, it'll lock that object.
-        If id is not provided, a ValueError is raised.
+        If id is not provided, a ValueError will be raised.
+
+        Deprecated (but possible in the future):
+            If id is not provided, and only one object with the same parameters exists in the db (i.e. unambiguous), that object will be locked.
         """
         if data.id and self.get_by_id(data.id):
-            _id = data.id
+            id = data.id
+
+        # elif self.count(**data.serialize()) == 1 and data.serialize():
+        #     id = self.filter(**data.serialize())[0].id
 
         else:
-            raise ValueError("Data id is not provided")
+            raise ValueError(".id parameter is not provided")
             return False
 
         return _BaseOperations.lock(self._table, id, max_attempts=max_attempts)
