@@ -1,0 +1,5 @@
+-   id: build-docs 
+    name: Automatic docs builder with pdoc3
+    description: This hook builds docs in the /docs folder.
+    entry: pdoc --html --force --html-dir docs/ mongoset 
+    language: python
