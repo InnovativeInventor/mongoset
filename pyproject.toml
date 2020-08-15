@@ -17,13 +17,13 @@ classifiers = [
 python = "^3.8"
 pymongo = "^3.10.1"
 dnspython = "^1.16.0"
-pytest-race = "^0.1.1"
 pydantic = "^1.6.1"
 pdbpp = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 black = "^19.10b0"
+pytest-race = "^0.1.1"
 pdbpp = "^0.10.2"
 pdoc3 = "^0.8.4"
 pre-commit = "^2.6.0"
