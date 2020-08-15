@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.4" />
+<title>mongoset.database API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mongoset.database</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from typing import List, Optional, Union
+
+import pymongo
+import pymongo.results
+from bson import ObjectId
+
+
+class Database:
+    def __init__(self, uri=&#34;&#34;, db_name=&#34;database&#34;):
+        # write_concern = pymongo.write_concern.WriteConcern(w=&#34;majority&#34;, fsync=True)
+        write_concern = pymongo.write_concern.WriteConcern(w=3, fsync=True)
+        read_concern = pymongo.read_concern.ReadConcern(level=&#34;majority&#34;)
+
+        self.client = pymongo.MongoClient(
+            uri, w=&#34;majority&#34;, fsync=True, wTimeoutMS=0, readPreference=&#34;primary&#34;
+        )
+
+        self.db_name = db_name
+
+    def __getitem__(self, table):
+        return Table(self.client, db_name=self.db_name, table_name=table)
+
+    def drop(self):
+        &#34;&#34;&#34;
+        Drops collection
+        &#34;&#34;&#34;
+        self.client.drop_database(self.db_name)
+
+
+class Table:
+    def __init__(
+        self,
+        client: pymongo.MongoClient,
+        db_name: str = &#34;database&#34;,
+        table_name: str = &#34;table&#34;,
+    ):
+        self.client = client
+        self.db_name = db_name
+        self.table_name = table_name
+        self.table = self.client[self.db_name][self.table_name]
+
+    def insert(self, row: dict) -&gt; Union[bool, str]:
+        &#34;&#34;&#34;
+        Inserts row. Returns true if the write is acknowledged.
+        &#34;&#34;&#34;
+        insert_response = self.table.insert_one(row)
+
+        if insert_response.acknowledged:
+            return str(insert_response.inserted_id)
+        else:
+            return False
+
+    def upsert(self, row: dict, key: List[str] = None) -&gt; bool:
+        &#34;&#34;&#34;
+        Upserts a row. Returns the number of documents modified. By default, if _id is not passed, it&#39;ll attempt to insert. Will return 0 if a document was inserted.
+        &#34;&#34;&#34;
+        row = self._convert_id_to_obj(row)
+        if (not key) and &#34;_id&#34; in row:
+            key = [&#34;_id&#34;]
+        elif not key:
+            raise ValueError(&#34;No key provided&#34;)
+
+        f = {a: b for a, b in [(i, row[i]) for i in key]}
+
+        # update_response = self.table.update_one(f, {&#34;$set&#34;: row}, upsert=True)
+        update_response = self.table.update_one(f, {&#34;$set&#34;: row}, upsert=True)
+
+        # if (not update_response.modified_count) and (not update_response.matched_count):
+        #    return self.insert(row)
+        # else:
+        #     return update_response.modified_count
+
+        return bool(update_response.modified_count)
+
+    def update(self, row: dict, key: List[str] = None) -&gt; bool:
+        &#34;&#34;&#34;
+        Updates a row. Returns the number of documents modified. Good for locking and other sensitive operations.
+        &#34;&#34;&#34;
+        row = self._convert_id_to_obj(row)
+        if (not key) and &#34;_id&#34; in row:
+            key = [&#34;_id&#34;]
+        elif not key:
+            raise ValueError(&#34;No key provided&#34;)
+
+        f = {a: b for a, b in [(i, row[i]) for i in key]}
+
+        # update_response = self.table.update_one(f, {&#34;$set&#34;: row}, upsert=True)
+        update_response = self.table.update_one(f, {&#34;$set&#34;: row})
+
+        return bool(update_response.modified_count)
+
+    def find_one(self, projection=None, **filter_expr) -&gt; dict:
+        &#34;&#34;&#34;
+        Returns the first match
+        &#34;&#34;&#34;
+        filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+        response = self.table.find_one(filter_expr, projection)
+        if response:
+            return self._convert_id_to_str(dict(response))
+
+        return None
+
+    def find(self, projection=None, **filter_expr) -&gt; List[dict]:
+        &#34;&#34;&#34;
+        Searches. Does not support comparison operators yet.
+        &#34;&#34;&#34;
+        filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+        return [
+            self._convert_id_to_str(dict(i))
+            for i in self.table.find(filter_expr, projection)
+        ]
+
+    def all(self) -&gt; List[dict]:
+        &#34;&#34;&#34;
+        Returns everything in the table
+        &#34;&#34;&#34;
+        return [dict(self._convert_id_to_str(i)) for i in self.table.find()]
+
+    def delete(self, **filter_expr) -&gt; int:
+        &#34;&#34;&#34;
+        Deletes everything that matches. Returns the number of items deleted.
+        &#34;&#34;&#34;
+        if not filter_expr:
+            raise ValueError(
+                &#34;Error! Empty filter expression! Call db.clear() if you want to delete everything&#34;
+            )
+
+        delete_response = self.table.delete_many(
+            self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+        )
+
+        return delete_response.deleted_count
+
+    def clear(self) -&gt; int:
+        &#34;&#34;&#34;
+        Clears the entire table. Returns the number of items that were deleted.
+        &#34;&#34;&#34;
+        return self.table.delete_many({}).deleted_count
+
+    def count(self, **filter_expr) -&gt; int:
+        &#34;&#34;&#34;
+        Counts the number of items that match the filter expression
+        &#34;&#34;&#34;
+        return int(self.table.count_documents(self._eval_filter_expr(filter_expr)))
+
+    def index(self, key: str, unique=True, index_type=pymongo.ASCENDING):
+        &#34;&#34;&#34;
+        Creates an index on the collection. If unique is set to True, an unique index is created and enforced.
+        &#34;&#34;&#34;
+        index = pymongo.operations.IndexModel((key), name=key + &#34;_index&#34;, unique=unique)
+        self.table.create_index(index)
+
+    def deindex(self, key: str):
+        &#34;&#34;&#34;
+        Removes an index in the collection.
+        &#34;&#34;&#34;
+        self.table.drop_index(key + &#34;_index&#34;)
+
+    def deindex_all(self):
+        &#34;&#34;&#34;
+        Deletes all indexes
+        &#34;&#34;&#34;
+        self.table.drop_indexes()
+
+    __len__ = count
+
+    @staticmethod
+    def _eval_filter_expr(filer_expr: dict) -&gt; dict:
+        for key, val in filer_expr.items():
+            if isinstance(val, Expression):
+                val = val.to_dict()
+                filer_expr[key] = val
+
+            if isinstance(val, tuple):
+                new_val = dict()
+
+                for expr in val:
+                    assert isinstance(expr, Expression)
+                    new_val.update(expr.to_dict())
+
+                filer_expr[key] = new_val
+
+        return filer_expr
+
+    @staticmethod
+    def _convert_id_to_str(data: dict) -&gt; dict:
+        if &#34;_id&#34; in data:
+            data[&#34;_id&#34;] = str(data[&#34;_id&#34;])
+        return data
+
+    @staticmethod
+    def _convert_id_to_obj(data: dict) -&gt; dict:
+        if &#34;_id&#34; in data:
+            data[&#34;_id&#34;] = ObjectId(data[&#34;_id&#34;])
+        return data
+
+
+class Expression:
+    def __init__(self, key, val):
+        self.key: str = key
+        self.val: str = val
+
+    def to_dict(self) -&gt; dict:
+        return {self.key: self.val}</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="mongoset.database.Database"><code class="flex name class">
+<span>class <span class="ident">Database</span></span>
+<span>(</span><span>uri='', db_name='database')</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Database:
+    def __init__(self, uri=&#34;&#34;, db_name=&#34;database&#34;):
+        # write_concern = pymongo.write_concern.WriteConcern(w=&#34;majority&#34;, fsync=True)
+        write_concern = pymongo.write_concern.WriteConcern(w=3, fsync=True)
+        read_concern = pymongo.read_concern.ReadConcern(level=&#34;majority&#34;)
+
+        self.client = pymongo.MongoClient(
+            uri, w=&#34;majority&#34;, fsync=True, wTimeoutMS=0, readPreference=&#34;primary&#34;
+        )
+
+        self.db_name = db_name
+
+    def __getitem__(self, table):
+        return Table(self.client, db_name=self.db_name, table_name=table)
+
+    def drop(self):
+        &#34;&#34;&#34;
+        Drops collection
+        &#34;&#34;&#34;
+        self.client.drop_database(self.db_name)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="mongoset.database.Database.drop"><code class="name flex">
+<span>def <span class="ident">drop</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Drops collection</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drop(self):
+    &#34;&#34;&#34;
+    Drops collection
+    &#34;&#34;&#34;
+    self.client.drop_database(self.db_name)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="mongoset.database.Expression"><code class="flex name class">
+<span>class <span class="ident">Expression</span></span>
+<span>(</span><span>key, val)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Expression:
+    def __init__(self, key, val):
+        self.key: str = key
+        self.val: str = val
+
+    def to_dict(self) -&gt; dict:
+        return {self.key: self.val}</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="mongoset.database.Expression.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self) -&gt; dict:
+    return {self.key: self.val}</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="mongoset.database.Table"><code class="flex name class">
+<span>class <span class="ident">Table</span></span>
+<span>(</span><span>client: pymongo.mongo_client.MongoClient, db_name: str = 'database', table_name: str = 'table')</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Table:
+    def __init__(
+        self,
+        client: pymongo.MongoClient,
+        db_name: str = &#34;database&#34;,
+        table_name: str = &#34;table&#34;,
+    ):
+        self.client = client
+        self.db_name = db_name
+        self.table_name = table_name
+        self.table = self.client[self.db_name][self.table_name]
+
+    def insert(self, row: dict) -&gt; Union[bool, str]:
+        &#34;&#34;&#34;
+        Inserts row. Returns true if the write is acknowledged.
+        &#34;&#34;&#34;
+        insert_response = self.table.insert_one(row)
+
+        if insert_response.acknowledged:
+            return str(insert_response.inserted_id)
+        else:
+            return False
+
+    def upsert(self, row: dict, key: List[str] = None) -&gt; bool:
+        &#34;&#34;&#34;
+        Upserts a row. Returns the number of documents modified. By default, if _id is not passed, it&#39;ll attempt to insert. Will return 0 if a document was inserted.
+        &#34;&#34;&#34;
+        row = self._convert_id_to_obj(row)
+        if (not key) and &#34;_id&#34; in row:
+            key = [&#34;_id&#34;]
+        elif not key:
+            raise ValueError(&#34;No key provided&#34;)
+
+        f = {a: b for a, b in [(i, row[i]) for i in key]}
+
+        # update_response = self.table.update_one(f, {&#34;$set&#34;: row}, upsert=True)
+        update_response = self.table.update_one(f, {&#34;$set&#34;: row}, upsert=True)
+
+        # if (not update_response.modified_count) and (not update_response.matched_count):
+        #    return self.insert(row)
+        # else:
+        #     return update_response.modified_count
+
+        return bool(update_response.modified_count)
+
+    def update(self, row: dict, key: List[str] = None) -&gt; bool:
+        &#34;&#34;&#34;
+        Updates a row. Returns the number of documents modified. Good for locking and other sensitive operations.
+        &#34;&#34;&#34;
+        row = self._convert_id_to_obj(row)
+        if (not key) and &#34;_id&#34; in row:
+            key = [&#34;_id&#34;]
+        elif not key:
+            raise ValueError(&#34;No key provided&#34;)
+
+        f = {a: b for a, b in [(i, row[i]) for i in key]}
+
+        # update_response = self.table.update_one(f, {&#34;$set&#34;: row}, upsert=True)
+        update_response = self.table.update_one(f, {&#34;$set&#34;: row})
+
+        return bool(update_response.modified_count)
+
+    def find_one(self, projection=None, **filter_expr) -&gt; dict:
+        &#34;&#34;&#34;
+        Returns the first match
+        &#34;&#34;&#34;
+        filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+        response = self.table.find_one(filter_expr, projection)
+        if response:
+            return self._convert_id_to_str(dict(response))
+
+        return None
+
+    def find(self, projection=None, **filter_expr) -&gt; List[dict]:
+        &#34;&#34;&#34;
+        Searches. Does not support comparison operators yet.
+        &#34;&#34;&#34;
+        filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+        return [
+            self._convert_id_to_str(dict(i))
+            for i in self.table.find(filter_expr, projection)
+        ]
+
+    def all(self) -&gt; List[dict]:
+        &#34;&#34;&#34;
+        Returns everything in the table
+        &#34;&#34;&#34;
+        return [dict(self._convert_id_to_str(i)) for i in self.table.find()]
+
+    def delete(self, **filter_expr) -&gt; int:
+        &#34;&#34;&#34;
+        Deletes everything that matches. Returns the number of items deleted.
+        &#34;&#34;&#34;
+        if not filter_expr:
+            raise ValueError(
+                &#34;Error! Empty filter expression! Call db.clear() if you want to delete everything&#34;
+            )
+
+        delete_response = self.table.delete_many(
+            self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+        )
+
+        return delete_response.deleted_count
+
+    def clear(self) -&gt; int:
+        &#34;&#34;&#34;
+        Clears the entire table. Returns the number of items that were deleted.
+        &#34;&#34;&#34;
+        return self.table.delete_many({}).deleted_count
+
+    def count(self, **filter_expr) -&gt; int:
+        &#34;&#34;&#34;
+        Counts the number of items that match the filter expression
+        &#34;&#34;&#34;
+        return int(self.table.count_documents(self._eval_filter_expr(filter_expr)))
+
+    def index(self, key: str, unique=True, index_type=pymongo.ASCENDING):
+        &#34;&#34;&#34;
+        Creates an index on the collection. If unique is set to True, an unique index is created and enforced.
+        &#34;&#34;&#34;
+        index = pymongo.operations.IndexModel((key), name=key + &#34;_index&#34;, unique=unique)
+        self.table.create_index(index)
+
+    def deindex(self, key: str):
+        &#34;&#34;&#34;
+        Removes an index in the collection.
+        &#34;&#34;&#34;
+        self.table.drop_index(key + &#34;_index&#34;)
+
+    def deindex_all(self):
+        &#34;&#34;&#34;
+        Deletes all indexes
+        &#34;&#34;&#34;
+        self.table.drop_indexes()
+
+    __len__ = count
+
+    @staticmethod
+    def _eval_filter_expr(filer_expr: dict) -&gt; dict:
+        for key, val in filer_expr.items():
+            if isinstance(val, Expression):
+                val = val.to_dict()
+                filer_expr[key] = val
+
+            if isinstance(val, tuple):
+                new_val = dict()
+
+                for expr in val:
+                    assert isinstance(expr, Expression)
+                    new_val.update(expr.to_dict())
+
+                filer_expr[key] = new_val
+
+        return filer_expr
+
+    @staticmethod
+    def _convert_id_to_str(data: dict) -&gt; dict:
+        if &#34;_id&#34; in data:
+            data[&#34;_id&#34;] = str(data[&#34;_id&#34;])
+        return data
+
+    @staticmethod
+    def _convert_id_to_obj(data: dict) -&gt; dict:
+        if &#34;_id&#34; in data:
+            data[&#34;_id&#34;] = ObjectId(data[&#34;_id&#34;])
+        return data</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="mongoset.database.Table.all"><code class="name flex">
+<span>def <span class="ident">all</span></span>(<span>self) ‑> List[dict]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns everything in the table</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def all(self) -&gt; List[dict]:
+    &#34;&#34;&#34;
+    Returns everything in the table
+    &#34;&#34;&#34;
+    return [dict(self._convert_id_to_str(i)) for i in self.table.find()]</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.clear"><code class="name flex">
+<span>def <span class="ident">clear</span></span>(<span>self) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Clears the entire table. Returns the number of items that were deleted.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clear(self) -&gt; int:
+    &#34;&#34;&#34;
+    Clears the entire table. Returns the number of items that were deleted.
+    &#34;&#34;&#34;
+    return self.table.delete_many({}).deleted_count</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.count"><code class="name flex">
+<span>def <span class="ident">count</span></span>(<span>self, **filter_expr) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Counts the number of items that match the filter expression</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def count(self, **filter_expr) -&gt; int:
+    &#34;&#34;&#34;
+    Counts the number of items that match the filter expression
+    &#34;&#34;&#34;
+    return int(self.table.count_documents(self._eval_filter_expr(filter_expr)))</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.deindex"><code class="name flex">
+<span>def <span class="ident">deindex</span></span>(<span>self, key: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes an index in the collection.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def deindex(self, key: str):
+    &#34;&#34;&#34;
+    Removes an index in the collection.
+    &#34;&#34;&#34;
+    self.table.drop_index(key + &#34;_index&#34;)</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.deindex_all"><code class="name flex">
+<span>def <span class="ident">deindex_all</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Deletes all indexes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def deindex_all(self):
+    &#34;&#34;&#34;
+    Deletes all indexes
+    &#34;&#34;&#34;
+    self.table.drop_indexes()</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.delete"><code class="name flex">
+<span>def <span class="ident">delete</span></span>(<span>self, **filter_expr) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Deletes everything that matches. Returns the number of items deleted.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delete(self, **filter_expr) -&gt; int:
+    &#34;&#34;&#34;
+    Deletes everything that matches. Returns the number of items deleted.
+    &#34;&#34;&#34;
+    if not filter_expr:
+        raise ValueError(
+            &#34;Error! Empty filter expression! Call db.clear() if you want to delete everything&#34;
+        )
+
+    delete_response = self.table.delete_many(
+        self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+    )
+
+    return delete_response.deleted_count</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.find"><code class="name flex">
+<span>def <span class="ident">find</span></span>(<span>self, projection=None, **filter_expr) ‑> List[dict]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Searches. Does not support comparison operators yet.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find(self, projection=None, **filter_expr) -&gt; List[dict]:
+    &#34;&#34;&#34;
+    Searches. Does not support comparison operators yet.
+    &#34;&#34;&#34;
+    filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+    return [
+        self._convert_id_to_str(dict(i))
+        for i in self.table.find(filter_expr, projection)
+    ]</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.find_one"><code class="name flex">
+<span>def <span class="ident">find_one</span></span>(<span>self, projection=None, **filter_expr) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the first match</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find_one(self, projection=None, **filter_expr) -&gt; dict:
+    &#34;&#34;&#34;
+    Returns the first match
+    &#34;&#34;&#34;
+    filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+    response = self.table.find_one(filter_expr, projection)
+    if response:
+        return self._convert_id_to_str(dict(response))
+
+    return None</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.index"><code class="name flex">
+<span>def <span class="ident">index</span></span>(<span>self, key: str, unique=True, index_type=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates an index on the collection. If unique is set to True, an unique index is created and enforced.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def index(self, key: str, unique=True, index_type=pymongo.ASCENDING):
+    &#34;&#34;&#34;
+    Creates an index on the collection. If unique is set to True, an unique index is created and enforced.
+    &#34;&#34;&#34;
+    index = pymongo.operations.IndexModel((key), name=key + &#34;_index&#34;, unique=unique)
+    self.table.create_index(index)</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.insert"><code class="name flex">
+<span>def <span class="ident">insert</span></span>(<span>self, row: dict) ‑> Union[bool, str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Inserts row. Returns true if the write is acknowledged.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def insert(self, row: dict) -&gt; Union[bool, str]:
+    &#34;&#34;&#34;
+    Inserts row. Returns true if the write is acknowledged.
+    &#34;&#34;&#34;
+    insert_response = self.table.insert_one(row)
+
+    if insert_response.acknowledged:
+        return str(insert_response.inserted_id)
+    else:
+        return False</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.update"><code class="name flex">
+<span>def <span class="ident">update</span></span>(<span>self, row: dict, key: List[str] = None) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Updates a row. Returns the number of documents modified. Good for locking and other sensitive operations.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update(self, row: dict, key: List[str] = None) -&gt; bool:
+    &#34;&#34;&#34;
+    Updates a row. Returns the number of documents modified. Good for locking and other sensitive operations.
+    &#34;&#34;&#34;
+    row = self._convert_id_to_obj(row)
+    if (not key) and &#34;_id&#34; in row:
+        key = [&#34;_id&#34;]
+    elif not key:
+        raise ValueError(&#34;No key provided&#34;)
+
+    f = {a: b for a, b in [(i, row[i]) for i in key]}
+
+    # update_response = self.table.update_one(f, {&#34;$set&#34;: row}, upsert=True)
+    update_response = self.table.update_one(f, {&#34;$set&#34;: row})
+
+    return bool(update_response.modified_count)</code></pre>
+</details>
+</dd>
+<dt id="mongoset.database.Table.upsert"><code class="name flex">
+<span>def <span class="ident">upsert</span></span>(<span>self, row: dict, key: List[str] = None) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Upserts a row. Returns the number of documents modified. By default, if _id is not passed, it'll attempt to insert. Will return 0 if a document was inserted.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def upsert(self, row: dict, key: List[str] = None) -&gt; bool:
+    &#34;&#34;&#34;
+    Upserts a row. Returns the number of documents modified. By default, if _id is not passed, it&#39;ll attempt to insert. Will return 0 if a document was inserted.
+    &#34;&#34;&#34;
+    row = self._convert_id_to_obj(row)
+    if (not key) and &#34;_id&#34; in row:
+        key = [&#34;_id&#34;]
+    elif not key:
+        raise ValueError(&#34;No key provided&#34;)
+
+    f = {a: b for a, b in [(i, row[i]) for i in key]}
+
+    # update_response = self.table.update_one(f, {&#34;$set&#34;: row}, upsert=True)
+    update_response = self.table.update_one(f, {&#34;$set&#34;: row}, upsert=True)
+
+    # if (not update_response.modified_count) and (not update_response.matched_count):
+    #    return self.insert(row)
+    # else:
+    #     return update_response.modified_count
+
+    return bool(update_response.modified_count)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="mongoset" href="index.html">mongoset</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="mongoset.database.Database" href="#mongoset.database.Database">Database</a></code></h4>
+<ul class="">
+<li><code><a title="mongoset.database.Database.drop" href="#mongoset.database.Database.drop">drop</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mongoset.database.Expression" href="#mongoset.database.Expression">Expression</a></code></h4>
+<ul class="">
+<li><code><a title="mongoset.database.Expression.to_dict" href="#mongoset.database.Expression.to_dict">to_dict</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mongoset.database.Table" href="#mongoset.database.Table">Table</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mongoset.database.Table.all" href="#mongoset.database.Table.all">all</a></code></li>
+<li><code><a title="mongoset.database.Table.clear" href="#mongoset.database.Table.clear">clear</a></code></li>
+<li><code><a title="mongoset.database.Table.count" href="#mongoset.database.Table.count">count</a></code></li>
+<li><code><a title="mongoset.database.Table.deindex" href="#mongoset.database.Table.deindex">deindex</a></code></li>
+<li><code><a title="mongoset.database.Table.deindex_all" href="#mongoset.database.Table.deindex_all">deindex_all</a></code></li>
+<li><code><a title="mongoset.database.Table.delete" href="#mongoset.database.Table.delete">delete</a></code></li>
+<li><code><a title="mongoset.database.Table.find" href="#mongoset.database.Table.find">find</a></code></li>
+<li><code><a title="mongoset.database.Table.find_one" href="#mongoset.database.Table.find_one">find_one</a></code></li>
+<li><code><a title="mongoset.database.Table.index" href="#mongoset.database.Table.index">index</a></code></li>
+<li><code><a title="mongoset.database.Table.insert" href="#mongoset.database.Table.insert">insert</a></code></li>
+<li><code><a title="mongoset.database.Table.update" href="#mongoset.database.Table.update">update</a></code></li>
+<li><code><a title="mongoset.database.Table.upsert" href="#mongoset.database.Table.upsert">upsert</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.4</a>.</p>
+</footer>
+</body>
+</html>
