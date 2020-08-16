@@ -2,6 +2,7 @@ import os
 
 import pytest
 from mongoset import __version__, connect
+from collections.abc import Iterable
 from mongoset.database import Database, Table
 from mongoset.expression import gt, gte, in_list, lt, lte, not_in_list
 from tests.test_setup import setup
@@ -103,6 +104,61 @@ def test_all():
     for element in elements:
         assert element["j"]
         assert element["k"]
+
+
+def test_all_iter():
+    table = setup()
+    table.clear()
+
+    table.insert({"j": 1, "k": 1})
+    table.insert({"j": 2, "k": 1})
+    table.insert({"j": 1, "k": 2})
+    table.insert({"j": 2, "k": 2})
+
+    elements = table.all_iter()
+
+    assert len(list(elements)) == 4
+
+    for element in elements:
+        assert element["j"]
+        assert element["k"]
+
+
+def test_find_expr():
+    table = setup()
+    table.clear()
+
+    table.insert({"i": 1, "j": 1})
+    table.insert({"i": 2, "j": 2})
+    table.insert({"i": 1, "j": 3})
+    table.insert({"i": 2, "j": 4})
+
+    rows = list(table.find_iter(j=gt(2)))
+    assert len(rows) == 2
+
+    rows = list(table.find_iter(j=gte(2)))
+    assert len(rows) == 3
+
+    rows = list(table.find_iter(i=lt(2)))
+    assert len(rows) == 2
+
+    rows = list(table.find_iter(i=lte(2)))
+    assert len(rows) == 4
+
+    rows = list(table.find_iter(j=(gt(1), lt(3))))
+    assert len(rows) == 1
+
+    rows = list(table.find_iter(j=(gt(1), lte(3))))
+    assert len(rows) == 2
+
+    rows = list(table.find_iter(j=(gt(1), lte(3)), i=lt(2)))
+    assert len(rows) == 1
+
+    rows = list(table.find_iter(j=in_list(2, 4)))
+    assert len(rows) == 2
+
+    rows = list(table.find_iter(j=not_in_list(1, 2, 4)))
+    assert len(rows) == 1
 
 
 def test_find_expr():

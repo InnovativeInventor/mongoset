@@ -3,6 +3,7 @@ from typing import List, Optional, Union
 import pymongo
 import pymongo.results
 from bson import ObjectId
+from collections.abc import Iterable
 
 
 class Database:
@@ -110,11 +111,27 @@ class Table:
             for i in self.table.find(filter_expr, projection)
         ]
 
+    def find_iter(self, projection=None, **filter_expr) -> Iterable:
+        """
+        Iterable version of searches. Does not support comparison operators yet.
+        """
+        filter_expr = self._convert_id_to_obj(self._eval_filter_expr(filter_expr))
+
+        for i in self.table.find(filter_expr, projection):
+            yield self._convert_id_to_str(dict(i))
+
     def all(self) -> List[dict]:
         """
         Returns everything in the table
         """
-        return [dict(self._convert_id_to_str(i)) for i in self.table.find()]
+        return [dict(self._convert_id_to_str(i)) for i in self.find()]
+
+    def all_iter(self) -> Iterable:
+        """
+        Iterable version of self.all()
+        """
+        for i in self.find_iter():
+            yield dict(self._convert_id_to_str(i))
 
     def delete(self, **filter_expr) -> int:
         """
